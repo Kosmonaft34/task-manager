@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -40,6 +41,7 @@ Route::get('/demo', function () {
 
 Route::resource('tasks',TaskController::class);
 Route::get('/',[IndexController::class,'index'])->name('index');
-Route::get('/register', [UserController::class,'index'])->name('register');
-Route::post('/register', [UserController::class,'create'])->name('create');
+Route::get('/register', [UserController::class,'index'])->name('register'); // view регистрации
+Route::post('/register', [UserController::class,'create'])->name('create'); // регистрация
+Route::get('register/authorization', [UserController::class, 'authorizationIndex'])->name('authorization');//авторизация
 

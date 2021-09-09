@@ -26,7 +26,7 @@
                     <a class="nav-link active" href="{{route('register')}}">Регистрация</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="$">Вход</a>
+                    <a class="nav-link active" href="{{route('authorization')}}">Вход</a>
                 </li>
             </ul>
         </div>

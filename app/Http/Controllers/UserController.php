@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     //
-    public function index(){
+    public function index(){         //view страницы регистрации
         return view('users.registers');
     }
 
@@ -25,4 +25,13 @@ class UserController extends Controller
 return redirect(route('tasks.index'));
 
     }
+
+    public function authorizationIndex(){
+        return view('users.authorization');
+    }
+//    public function authorization(Request $request){ //функция авторизации
+//           $data=$request->all();
+//           User::
+//
+//    }
 }
