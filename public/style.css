@@ -1,0 +1,11 @@
+.cardTasks{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.card-body{
+    position: absolute;
+
+}
