@@ -16,24 +16,33 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                @auth
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{route('tasks.index')}}">Мои задачи</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Мой профиль</a>
+                    <a class="nav-link active" href="#">{{Auth::user()->name}}</a>
                 </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('exit')}}">Выйти</a>
+                    </li>
+
+                @endauth
+
+                    @guest
                 <li class="nav-item">
                     <a class="nav-link active" href="{{route('register')}}">Регистрация</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="{{route('authorization')}}">Вход</a>
+                    @endguest
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
-g    @yield('content')
+     @yield('content')
 </div>
 
 @section('scripts')

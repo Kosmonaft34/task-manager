@@ -52,11 +52,17 @@ return redirect(route('autho'));
        if(!Auth::attempt([
            'email'=>$data['email'],
            'password'=>$data['password']
-       ])){
+       ], isset($data['remember']))){  //isset проверяет если галочка 'Запомнить меня' нажата,то возвращает тру
            return back()->withErrors([
                        'message' => 'Неверный логин или пароль'
                ]);
        }
        return redirect(route('index'));
+   }
+   public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate(); //Чистим данные во внутреннем хранилище
+        $request->session()->regenerateToken();//Убираем токен запонить пароль
+       return redirect(route('authorization'));
    }
 }

@@ -45,4 +45,5 @@ Route::get('/register', [UserController::class,'index'])->name('register'); // v
 Route::post('/register', [UserController::class,'create'])->name('create'); // регистрация
 Route::get('register/authorization', [UserController::class, 'authorizationIndex'])->name('authorization');//авторизация
 Route::post('register/authorization', [UserController::class, 'autho'])->name('autho');//авторизация отправка данных
+Route::get('/logout',[UserController::class, 'logout'])->name('exit');
 
