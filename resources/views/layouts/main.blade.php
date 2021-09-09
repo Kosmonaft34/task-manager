@@ -33,7 +33,7 @@
     </div>
 </nav>
 <div class="container">
-    @yield('content')
+g    @yield('content')
 </div>
 
 @section('scripts')

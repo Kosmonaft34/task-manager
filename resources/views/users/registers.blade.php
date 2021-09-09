@@ -81,7 +81,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="email" id="confirm" placeholder="Введите Ваш e-mail"/>
+                            <input type="text" class="form-control" name="email" id="confirm" placeholder="Введите Ваш e-mail"/>
                         </div>
                     </div>
                 </div>

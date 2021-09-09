@@ -44,4 +44,5 @@ Route::get('/',[IndexController::class,'index'])->name('index');
 Route::get('/register', [UserController::class,'index'])->name('register'); // view регистрации
 Route::post('/register', [UserController::class,'create'])->name('create'); // регистрация
 Route::get('register/authorization', [UserController::class, 'authorizationIndex'])->name('authorization');//авторизация
+Route::post('register/authorization', [UserController::class, 'autho'])->name('autho');//авторизация отправка данных
 
