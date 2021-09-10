@@ -20,6 +20,9 @@ class UserController extends Controller
         //
         $data=$request->all();
        User::create([
+           'surname'=>$data['surname'],
+            'Date_Birth'=>$data['Date_Birth'],
+            'patronymic'=>$data['patronymic'],
             'name'=>$data['name'],
             'password'=>Hash::make($data['password']),
             'email'=>$data['email']

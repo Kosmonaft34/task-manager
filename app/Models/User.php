@@ -13,5 +13,5 @@ class User extends Model implements Authenticatable
     use \Illuminate\Auth\Authenticatable,HasFactory;
     protected $table = 'users'; //на какую таблицу будет смотреть модель
 
-    protected $fillable =['name','email','password'];
+    protected $fillable =['name','email','password','Date_Birth', 'surname', 'patronymic'];
 }

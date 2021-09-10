@@ -67,11 +67,41 @@
             <form class="" method="post" action="{{route('create')}}">
                 @csrf
                 <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Фамилия</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="surname" id="email" placeholder="Введите Вашу Фамилию"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="email" class="cols-sm-2 control-label">Имя</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" name="name" id="email" placeholder="Введите Ваше имя"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Отчество</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="patronymic" id="email" placeholder="Введите Ваше Отчество"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Дата рождения</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input type="date" class="form-control" name="Date_Birth" id="email" placeholder="Введите Вашу дату рождения"/>
                         </div>
                     </div>
                 </div>
