@@ -39,11 +39,22 @@ Route::get('/demo', function () {
 //Route::get('/tasks',[TaskController::class,'index'])->name('list');
 //Route::get('/task/{id}',[TaskController::class,'show'])->name('show');
 
-Route::resource('tasks',TaskController::class);
-Route::get('/',[IndexController::class,'index'])->name('index');
-Route::get('/register', [UserController::class,'index'])->name('register'); // view регистрации
-Route::post('/register', [UserController::class,'create'])->name('create'); // регистрация
-Route::get('register/authorization', [UserController::class, 'authorizationIndex'])->name('authorization');//авторизация
-Route::post('register/authorization', [UserController::class, 'autho'])->name('autho');//авторизация отправка данных
-Route::get('/logout',[UserController::class, 'logout'])->name('exit');
 
+Route::get('/',[IndexController::class,'index'])->name('index');
+//Защитим гостевые маршруты
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [UserController::class, 'index'])->name('register'); // view регистрации
+    Route::post('/register', [UserController::class, 'create'])->name('create'); // регистрация
+    Route::get('register/authorization', [UserController::class, 'authorizationIndex'])->name('authorization');//авторизация
+    Route::post('register/authorization', [UserController::class, 'autho'])->name('autho');//авторизация отправка данных
+  });
+
+//Защитим авторизованные маршруты
+//1й способ по одному
+Route::resource('tasks',TaskController::class)->middleware('auth');
+
+//2й способ группа
+Route::middleware('auth')->group(function (){
+    Route::get('/user', [UserController::class, 'show'])->name('user.show');//auth
+    Route::get('/logout',[UserController::class, 'logout'])->name('exit');
+});

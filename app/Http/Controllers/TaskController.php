@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Status;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -16,7 +18,7 @@ class TaskController extends Controller
     public function index()
     {
         //
-        $tasks = Task:: select('id', 'title', 'preview_text','status_id')->get();
+        $tasks = Auth::user()->tasks()->get();
         return view('tasks.index',
         ['list'=>$tasks]);
 
@@ -61,11 +63,12 @@ class TaskController extends Controller
         //
         $status=Status::find(1);
 
-    $status ->tasks()->create([
+    $task = $status ->tasks()->create([
         'title'=>$data['title'],
         'preview_text'=>$data['preview'],
         'detail_text'=>$data['detail']
     ]);
+    $task->users()->attach(Auth::id());
     return redirect(route('tasks.index'));
     }
 
@@ -78,11 +81,15 @@ class TaskController extends Controller
     public function show($id)
     {
         //
+
        $task= Task::select('title', 'detail_text','status_id','id')
 
            ->find($id);
        $status=$task->status;
-      return view('tasks.show', ['task' =>$task,'status'=>$status]);
+        if(Gate::allows('update', $task)) {
+            return view('tasks.show', ['task' => $task, 'status' => $status]);
+            else redirect('users.authorization');
+        }
     }
 
     /**
@@ -100,6 +107,7 @@ class TaskController extends Controller
             ['taskEdit'=>$edit,
         'statusList'=> $statuses]
         );
+
     }
 
     /**

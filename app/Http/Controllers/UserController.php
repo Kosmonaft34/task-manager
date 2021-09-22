@@ -36,6 +36,7 @@ return redirect(route('autho'));
     }
    public function autho(Request $request){ //функция авторизации
            $data=$request->all();
+
 //---------------Ручной вариант-----------------------------
 //           $user=User::select('id','password','email')
 //               ->where('email','=',$data['email'])
@@ -55,7 +56,8 @@ return redirect(route('autho'));
        if(!Auth::attempt([
            'email'=>$data['email'],
            'password'=>$data['password']
-       ], isset($data['remember']))){  //isset проверяет если галочка 'Запомнить меня' нажата,то возвращает тру
+       ],
+           isset($data['remember']))){  //isset проверяет если галочка 'Запомнить меня' нажата,то возвращает тру
            return back()->withErrors([
                        'message' => 'Неверный логин или пароль'
                ]);
@@ -67,5 +69,10 @@ return redirect(route('autho'));
         $request->session()->invalidate(); //Чистим данные во внутреннем хранилище
         $request->session()->regenerateToken();//Убираем токен запонить пароль
        return redirect(route('authorization'));
+   }
+   public function show(){
+        $data = User::select('id','name','surname', 'patronymic', 'Date_Birth','email' )
+        ->find(Auth::id());//параметры для авторизованоного айди
+        return view('users.show',['user'=>$data]);
    }
 }

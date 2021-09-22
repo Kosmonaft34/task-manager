@@ -14,4 +14,8 @@ class User extends Model implements Authenticatable
     protected $table = 'users'; //на какую таблицу будет смотреть модель
 
     protected $fillable =['name','email','password','Date_Birth', 'surname', 'patronymic'];
+    public function tasks(){
+        return $this->belongsToMany(Task::class);
 }
+}
+

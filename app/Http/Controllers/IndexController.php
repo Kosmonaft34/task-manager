@@ -46,7 +46,9 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=User::select('id','surname','name','patronymic','Date_birth','email')
+        ->find($id);
+        $data=$data->surname;
     }
 
     /**
