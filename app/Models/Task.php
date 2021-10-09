@@ -13,6 +13,7 @@ class Task extends Model
 
     public function minis()
     {
+
         return $this->hasMany(Mini::class);
     }
     public function status()

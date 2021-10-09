@@ -3,6 +3,15 @@
 @section('title', 'Регистрация')
 
 @section('content')
+
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            @foreach($errors->all() as $error)
+                <p>{{$error}}</p>
+            @endforeach
+        </div>
+    @endif
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
@@ -71,7 +80,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="surname" id="email" placeholder="Введите Вашу Фамилию"/>
+                            <input type="text" class="form-control" name="surname" id="email" placeholder="Введите Вашу Фамилию" value="{{ old('surname') }}"/>
                         </div>
                     </div>
                 </div>
@@ -81,7 +90,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="email" placeholder="Введите Ваше имя"/>
+                            <input type="text" class="form-control" name="name" id="email" placeholder="Введите Ваше имя" value="{{ old('name') }}"/>
                         </div>
                     </div>
                 </div>
@@ -91,7 +100,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="patronymic" id="email" placeholder="Введите Ваше Отчество"/>
+                            <input type="text" class="form-control" name="patronymic" id="email" placeholder="Введите Ваше Отчество" value="{{ old('patronymic') }}"/>
                         </div>
                     </div>
                 </div>
@@ -101,7 +110,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="date" class="form-control" name="Date_Birth" id="email" placeholder="Введите Вашу дату рождения"/>
+                            <input type="date" class="form-control" name="Date_Birth" id="email" placeholder="Введите Вашу дату рождения" value="{{ old('Date_Birth') }}"/>
                         </div>
                     </div>
                 </div>
@@ -111,7 +120,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="confirm" placeholder="Введите Ваш e-mail"/>
+                            <input type="text" class="form-control" name="email" id="confirm" placeholder="Введите Ваш e-mail" value="{{ old('email') }}"/>
                         </div>
                     </div>
                 </div>

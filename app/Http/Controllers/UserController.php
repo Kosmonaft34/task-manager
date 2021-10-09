@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,10 +17,10 @@ class UserController extends Controller
         return view('users.registers');
     }
 
-    public function create(Request $request)//указываем реквест всегда когда надо собрать данные
+    public function create(UserRegisterRequest $request)//указываем реквест всегда когда надо собрать данные
     {
         //
-        $data=$request->all();
+        $data=$request->validated();
        User::create([
            'surname'=>$data['surname'],
             'Date_Birth'=>$data['Date_Birth'],
@@ -34,8 +36,8 @@ return redirect(route('autho'));
     public function authorizationIndex(){
         return view('users.authorization');
     }
-   public function autho(Request $request){ //функция авторизации
-           $data=$request->all();
+   public function autho(AuthRequest $request){ //функция авторизации
+           $data=$request->validated();
 
 //---------------Ручной вариант-----------------------------
 //           $user=User::select('id','password','email')

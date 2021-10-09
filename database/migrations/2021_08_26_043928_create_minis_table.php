@@ -18,7 +18,8 @@ class CreateMinisTable extends Migration
             $table->string('text');
             $table->foreignId('task_id')
             ->references('id')
-                ->on('tasks')
+                ->on('tasks');
+                $table->timestamps();
             ;
         });
     }

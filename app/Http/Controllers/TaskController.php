@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskCreateRequest;
+use App\Http\Requests\TaskUpdateRequest;
+use App\Models\Mini;
 use App\Models\Status;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -42,10 +45,11 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskCreateRequest $request)
     {
         //
-        $data = $request->all();
+
+        $data = $request->validated();
 //------------------------1Й ВАРИАНТ-----------------------
 //       $task = new Task();
 //        $task ->title = $data['title'];
@@ -69,6 +73,15 @@ class TaskController extends Controller
         'detail_text'=>$data['detail']
     ]);
     $task->users()->attach(Auth::id());
+    //Привязать мини задачи
+        foreach ($data['mini'] as $mini){
+            if(strlen($mini)>0) //Условие если длина строки больше 0,тогда выяполняется код ниже
+            $miniModel=new Mini();
+            $miniModel->text = $mini;
+            $miniModel->task_id = $task->id;//$task->id берём отсюда $task = $status ->tasks()->create([ 'title'=>$data['title'],
+            $miniModel->save();
+
+        }
     return redirect(route('tasks.index'));
     }
 
@@ -82,15 +95,17 @@ class TaskController extends Controller
     {
         //
 
-       $task= Task::select('title', 'detail_text','status_id','id')
+        $task= Task::select('title', 'detail_text','status_id','id')
 
            ->find($id);
        $status=$task->status;
-        if(Gate::allows('update', $task)) {
+        if(Auth::user()->can('view',$task)) {
             return view('tasks.show', ['task' => $task, 'status' => $status]);
-            else redirect('users.authorization');
         }
-    }
+        else{
+            return redirect(route('tasks.index'));
+        }
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -101,12 +116,18 @@ class TaskController extends Controller
     public function edit($id)
     {
         //
+
         $statuses= Status::get();
         $edit=Task::find($id);
-        return view('tasks.edit',
-            ['taskEdit'=>$edit,
-        'statusList'=> $statuses]
-        );
+        if(Auth::user()->can('view',$edit)) {
+            return view('tasks.edit',
+                ['taskEdit' => $edit,
+                    'statusList' => $statuses]
+            );
+        }
+        else{
+            return redirect(route('tasks.edit'));
+        }
 
     }
 
@@ -117,11 +138,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TaskUpdateRequest $request, $id)
     {
         //Собрали все данные с формы
-         $data=$request->all();
-         // Получили необходимую задачу из базы,которую мы будем редактировать
+        $data = $request->validated();
+        // Получили необходимую задачу из базы,которую мы будем редактировать
         $task = Task::find($id);
         //Перезаписываем данные в базу
         $task->title = $data ['title'];
@@ -130,10 +151,20 @@ class TaskController extends Controller
         //Сохраняем новые данные в базу
         $task->status_id = $data['status'];
         $task->save();
+        //Удаляем все мини-задачи для текущей задачи
+        $task->minis()->delete();
+        //Сохраняем мини-задачи из формы
+        foreach ($data['mini'] as $mini) {
+            if (strlen($mini) > 0) //Условие если длина строки больше 0,тогда выяполняется код ниже
+                $miniModel = new Mini();
+            $miniModel->text = $mini;
+            $miniModel->task_id = $task->id;//$task->id берём отсюда $task = $status ->tasks()->create([ 'title'=>$data['title'],
+            $miniModel->save();
+        }
         //Делаем редирект на страницу с детальным описанием задачи
-        return redirect(route('tasks.show',['task' =>$id]));
-    }
+        return redirect(route('tasks.show', ['task' => $id]));
 
+    }
     /**
      * Remove the specified resource from storage.
      *

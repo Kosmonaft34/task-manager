@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class User extends Model implements Authenticatable
+class User extends \Illuminate\Foundation\Auth\User
 {
     use HasFactory;
     use \Illuminate\Auth\Authenticatable,HasFactory;

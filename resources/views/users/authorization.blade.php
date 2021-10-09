@@ -4,12 +4,13 @@
 
 @section('content')
 
-    @if($errors->has('message'))
+    @if($errors->any())
         <div class="alert alert-danger" role="alert">
-            {{$errors->first('message')}}
+            @foreach($errors->all() as $error)
+                <p>{{$error}}</p>
+            @endforeach
         </div>
-
-@endif
+    @endif
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />

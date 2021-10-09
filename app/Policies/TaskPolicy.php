@@ -23,9 +23,23 @@ class TaskPolicy
 
         //
     }
-
-    public function __update (User $user,Task $task){
-
-                return $user === $task ;
+    public function view(User $user,Task  $task){
+        return $this->update($user,$task);
+    }
+    public function update (User $user,Task $task){
+//$tasks-Список задач текущего пользователя массив
+//$task - запрашиваемая задача
+    $tasks=$user->tasks;
+//    Перебираем список задач $tasks текущего пользователя
+    foreach ($tasks as $usertask) {
+//        Если проверяемая задача $task (а конкретно её id)
+//        равен отдельной задаче из списка (тоже по id)
+        if($task->id === $usertask->id) {
+//            политику прошли
+            return true;
+        }
+    }
+//    Список перебрали,задачу не нашли политику НЕ прошли
+    return false;
     }
 }
