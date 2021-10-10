@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
+
     protected $table = 'files';
-    protected $fillable = ['path','name','mime'];
+    protected $fillable = ['path', 'name', 'mime'];
+
+
+public function task(){
+    return $this->belongsTo(Task::class);
+}
 }

@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         //
         $data=$request->validated();
-       User::create([
+    $user = User::create([
            'surname'=>$data['surname'],
             'Date_Birth'=>$data['Date_Birth'],
             'patronymic'=>$data['patronymic'],
@@ -29,7 +29,9 @@ class UserController extends Controller
             'password'=>Hash::make($data['password']),
             'email'=>$data['email']
              ]);
-return redirect(route('autho'));
+      //Мы сразу регистрируем авторизованного пользователя
+       Auth::login($user);
+return redirect(route('index'));
 
     }
 

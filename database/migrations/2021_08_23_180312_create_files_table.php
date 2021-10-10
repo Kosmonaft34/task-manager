@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->foreignId('task_id')
             ->references('id')
             ->on('tasks');
+//            $table->morphs('fileable');
             $table->string('path');
             $table->string('name');
             $table->string('mime',20);

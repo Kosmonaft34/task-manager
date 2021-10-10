@@ -11,10 +11,19 @@
         @endforeach
     </div>
     @endif
-    <form method="POST" action="{{route('tasks.update',['task' =>$taskEdit->id])}}">
+    <form method="POST" action="{{route('tasks.update',['task' =>$taskEdit->id])}}" enctype="multipart/form-data">
         @csrf
 
         @method('PUT')
+
+        @isset($task->file)
+            <img src="{{ asset($task->file->path) }}">
+        @endisset
+        <div class="mb-3">
+               <label for="formFile" class="form-label">Заменить изображение</label>
+            <input class="form-control" type="file" id="formFile" name="file">
+        </div>
+
         <div class="mb-3">
             <label for="statuses" class="form-label">Статус задачи</label>
             <select class="form-select" id="statuses" name="status">

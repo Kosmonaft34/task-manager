@@ -57,4 +57,5 @@ Route::resource('tasks',TaskController::class)->middleware('auth');
 Route::middleware('auth')->group(function (){
     Route::get('/user', [UserController::class, 'show'])->name('user.show');//auth
     Route::get('/logout',[UserController::class, 'logout'])->name('exit');
+    Route::get('/delete',[TaskController::class, ''])->name('destroy');//Удаление задачи
 });
