@@ -172,7 +172,7 @@ class TaskController extends Controller
         $task->preview_text = $data['preview'];
         $task->detail_text = $data['detail'];
         //Сохраняем новые данные в базу
-        $task->status_id = $data['status '];
+        $task->status_id = $data['status'];
         $task->save();
 
         if(!isset ($data['mini'])){
