@@ -10,7 +10,11 @@ class Task extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table='tasks';
-    protected $fillable = ['title','preview_text','detail_text'];
+    protected $fillable = ['title','preview_text','detail_text', 'project_id'];
+
+    public function project(){
+        return $this->hasMany(Project::class);
+    }
 
     public function minis()
     {
@@ -22,9 +26,9 @@ class Task extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function users(){
-        return $this->belongsToMany(User::class);
-    }
+//    public function users(){
+//        return $this->belongsToMany(User::class);
+//    }
 
     public function file(){
         return $this->hasOne(File::class);

@@ -3,7 +3,7 @@
 @section('title', 'Создание новой задачи')
 
 @section('content')
- <h1>Страница с созданием заявки</h1>
+ <h1>Страница с созданием задачи</h1>
 
  @if($errors->any())
      <div class="alert alert-danger" role="alert">

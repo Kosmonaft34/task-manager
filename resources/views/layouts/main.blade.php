@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{route('tasks.index')}}">Мои задачи</a>
                 </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{route('project.index')}}">Мои проекты</a>
+                    </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="{{route('user.show')}}">{{Auth::user()->name}}</a>
                 </li>

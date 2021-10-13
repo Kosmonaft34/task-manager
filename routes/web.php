@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,7 @@ Route::get('/demo', function () {
 
 
 Route::get('/',[IndexController::class,'index'])->name('index');
+
 //Защитим гостевые маршруты
 Route::middleware('guest')->group(function () {
     Route::get('/register', [UserController::class, 'index'])->name('register'); // view регистрации
@@ -58,4 +60,6 @@ Route::middleware('auth')->group(function (){
     Route::get('/user', [UserController::class, 'show'])->name('user.show');//auth
     Route::get('/logout',[UserController::class, 'logout'])->name('exit');
     Route::get('/delete',[TaskController::class, ''])->name('destroy');//Удаление задачи
+    Route::get('list_project',[ProjectController::class, 'index'])->name('project.index');//страница со списком проектов
+    Route::get('/create_project',[ProjectController::class, 'create'])->name('create_project');//страница с созданием проекта
 });
