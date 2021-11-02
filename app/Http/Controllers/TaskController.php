@@ -148,7 +148,7 @@ class TaskController extends Controller
             );
         }
         else{
-            return redirect(route('tasks.edit'));
+            return redirect(route('tasks.index'));
         }
 
     }
